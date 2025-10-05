@@ -14,7 +14,7 @@ import '../../../../data/repositories/authentication/authentication_repository.d
 import '../../../../utils/constants/sizes.dart';
 import '../../controllers/user_controller.dart';
 import '../address/address.dart';
-import '../brands/add_brand_screen.dart';
+import '../brands/mon_tablissemen_screen.dart';
 import '../categories/category_manager_screen.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -138,7 +138,7 @@ class SettingsScreen extends StatelessWidget {
                     icon: Iconsax.home,
                     title: "Ajouter une établissement",
                     subTitle: "Insère un établissement",
-                    onTap: () => Get.to(() => AddBrandScreen()),
+                    onTap: () => Get.to(() => MonEtablissementScreen()),
                   ),
                 SizedBox(
                   height: AppSizes.spaceBtwSections,
