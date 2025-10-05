@@ -20,6 +20,7 @@ class BrandProducts extends StatelessWidget {
     return Scaffold(
       appBar: TAppBar(
         title: Text(brand.name),
+        showBackArrow: true,
       ),
       body: SingleChildScrollView(
           child: Padding(

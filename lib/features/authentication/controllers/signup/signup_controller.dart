@@ -70,9 +70,7 @@ class SignupController extends GetxController {
         return;
       }
 
-      // 4. Register with Supabase
-      print('🔄 Début de l\'inscription...');
-      // 6. Enregistrer les donnés utilisateurs dans la table Supabase
+   // 4. Enregistrer les donnés utilisateurs dans la table Supabase
       final userData = {
         'first_name': firstName.text.trim(),
         'last_name': lastName.text.trim(),
@@ -83,7 +81,7 @@ class SignupController extends GetxController {
         'profile_image_url': '',
       };
 
-      // Send OTP to email
+      // Envoyer OTP vers email
       await AuthenticationRepository.instance.signUpWithEmailOTP(
         email.text.trim(),
         userData,

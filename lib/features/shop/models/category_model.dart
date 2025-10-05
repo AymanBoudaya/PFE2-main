@@ -55,7 +55,8 @@ class CategoryModel {
       name: json['name']?.toString() ?? '',
       image: json['image']?.toString() ?? '',
       // Si parentId est vide ou null, on met null
-      parentId: (json['parentId'] == null || json['parentId'].toString().trim().isEmpty)
+      parentId: (json['parentId'] == null ||
+              json['parentId'].toString().trim().isEmpty)
           ? null
           : json['parentId'].toString(),
       isFeatured: json['isFeatured'] is bool
@@ -70,9 +71,10 @@ class CategoryModel {
       id: row['id']?.toString() ?? '',
       name: row['name']?.toString() ?? '',
       image: row['image']?.toString() ?? '',
-      parentId: (row['parentId'] == null || row['parentId'].toString().trim().isEmpty)
-          ? null
-          : row['parentId'].toString(),
+      parentId:
+          (row['parentId'] == null || row['parentId'].toString().trim().isEmpty)
+              ? null
+              : row['parentId'].toString(),
       isFeatured: row['isFeatured'] is bool
           ? row['isFeatured']
           : (row['isFeatured']?.toString().toLowerCase() == 'true'),
@@ -94,5 +96,10 @@ class CategoryModel {
       parentId: parentId ?? this.parentId,
       isFeatured: isFeatured ?? this.isFeatured,
     );
+  }
+
+  @override
+  String toString() {
+    return 'CategoryModel(id: $id, name: $name, isFeatured: $isFeatured)';
   }
 }

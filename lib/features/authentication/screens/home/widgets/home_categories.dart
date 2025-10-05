@@ -37,7 +37,7 @@ class THomeCategories extends StatelessWidget {
             itemCount: categoryController.featuredCategories.length,
             scrollDirection: Axis.horizontal,
             itemBuilder: (_, index) {
-              final category = categoryController.allCategories[index];
+              final category = categoryController.featuredCategories[index];
               return TVerticalImageText(
                 image: category.image,
                 title: category.name,

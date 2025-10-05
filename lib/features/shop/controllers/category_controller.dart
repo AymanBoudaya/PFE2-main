@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:caferesto/features/personalization/controllers/user_controller.dart';
@@ -113,7 +114,7 @@ class CategoryController extends GetxController {
       return [];
     }
   }
-  /// Ajouter une nouvelle catégorie
+
   /// Ajouter une nouvelle catégorie
   Future<void> addCategory() async {
     if (!formKey.currentState!.validate()) {
@@ -122,7 +123,8 @@ class CategoryController extends GetxController {
 
     if (userController.user.value.role != 'Gérant' &&
         userController.user.value.role != 'Admin') {
-      showErrorSnackbar("Vous n'avez pas la permission d'ajouter une catégorie.");
+      showErrorSnackbar(
+          "Vous n'avez pas la permission d'ajouter une catégorie.");
       return;
     }
 
@@ -131,13 +133,14 @@ class CategoryController extends GetxController {
 
       String imageUrl = TImages.pasdimage;
       if (pickedImage.value != null) {
-        imageUrl = await _categoryRepository.uploadCategoryImage(pickedImage.value!);
+        imageUrl =
+            await _categoryRepository.uploadCategoryImage(pickedImage.value!);
       }
 
-      final String? parentId = (selectedParentId.value != null &&
-          selectedParentId.value!.isNotEmpty)
-          ? selectedParentId.value
-          : null;
+      final String? parentId =
+          (selectedParentId.value != null && selectedParentId.value!.isNotEmpty)
+              ? selectedParentId.value
+              : null;
 
       final newCategory = CategoryModel(
         id: '',
@@ -152,14 +155,13 @@ class CategoryController extends GetxController {
 
       clearForm();
 
-      /// ⚡ Retourner à l'écran précédent AVANT le snackbar
+      ///  Retourner à l'écran précédent AVANT le snackbar
       Get.back();
 
-      /// ⚡ Le snackbar va s'afficher dans l'écran précédent
+      ///  Le snackbar va s'afficher dans l'écran précédent
       showSuccessSnackbar(
         'Catégorie "${nameController.text.trim()}" ajoutée avec succès',
       );
-
     } catch (e) {
       showErrorSnackbar(e.toString());
     } finally {
@@ -168,7 +170,6 @@ class CategoryController extends GetxController {
   }
 
   /// Modifier une catégorie
-  /// Modifier une catégorie - Version améliorée
   Future<bool> editCategory(CategoryModel originalCategory) async {
     if (userController.user.value.role != 'Gérant' &&
         userController.user.value.role != 'Admin') {
@@ -185,16 +186,17 @@ class CategoryController extends GetxController {
       // Gestion de l'image
       String imageUrl = originalCategory.image;
       if (pickedImage.value != null) {
-        imageUrl = await _categoryRepository.uploadCategoryImage(pickedImage.value!);
+        imageUrl =
+            await _categoryRepository.uploadCategoryImage(pickedImage.value!);
       }
 
       // Utiliser les valeurs du contrôleur (déjà mises à jour par l'écran)
       final updatedCategory = CategoryModel(
         id: originalCategory.id,
-        name: nameController.text.trim(), // Utilise directement le contrôleur
+        name: nameController.text.trim(),
         image: imageUrl,
-        parentId: selectedParentId.value, // Utilise directement le contrôleur
-        isFeatured: isFeatured.value, // Utilise directement le contrôleur
+        parentId: selectedParentId.value,
+        isFeatured: isFeatured.value,
       );
 
       await _categoryRepository.updateCategory(updatedCategory);
@@ -215,9 +217,6 @@ class CategoryController extends GetxController {
       isLoading.value = false;
     }
   }
-
-
-
 
   void showSuccessSnackbar(String message) {
     Get.snackbar(
@@ -247,11 +246,12 @@ class CategoryController extends GetxController {
     );
   }
 
-   /// Supprimer une catégorie la méthode removeCategory pour utiliser votre snackbar
+  /// Supprimer une catégorie la méthode removeCategory pour utiliser votre snackbar
   Future<void> removeCategory(String categoryId) async {
     if (userController.user.value.role != 'Gérant' &&
         userController.user.value.role != 'Admin') {
-      showErrorSnackbar("Vous n'avez pas la permission de supprimer une catégorie.");
+      showErrorSnackbar(
+          "Vous n'avez pas la permission de supprimer une catégorie.");
       return;
     }
 
@@ -265,7 +265,9 @@ class CategoryController extends GetxController {
       showErrorSnackbar(e.toString());
     } finally {
       isLoading.value = false;
-    }}
+    }
+  }
+
   String getParentName(String parentId) {
     try {
       final parent = allCategories.firstWhere((cat) => cat.id == parentId);
@@ -274,6 +276,7 @@ class CategoryController extends GetxController {
       return "Inconnue";
     }
   }
+
   void initializeForEdit(CategoryModel category) {
     nameController.text = category.name;
     selectedParentId.value = category.parentId;

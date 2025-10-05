@@ -1,5 +1,8 @@
+import 'package:caferesto/utils/constants/colors.dart';
+import 'package:caferesto/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../../common/widgets/appbar/appbar.dart';
 import '../../../../data/repositories/etablissement/etablissement_repository.dart';
 import '../../../shop/controllers/etablissement_controller.dart';
 import '../../../shop/models/etablissement_model.dart';
@@ -143,14 +146,12 @@ class _AddEtablissementScreenState extends State<AddEtablissementScreen> {
         ),
       );
     }
+    final dark = THelperFunctions.isDarkMode(context);
 
     return Scaffold(
-      appBar: AppBar(
+      appBar: TAppBar(
         title: const Text('Ajouter un établissement'),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
+        showBackArrow: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -216,10 +217,9 @@ class _AddEtablissementScreenState extends State<AddEtablissementScreen> {
                     : null,
               ),
               const SizedBox(height: 16),
-
               // Information sur les horaires
               Card(
-                color: Colors.blue[50],
+                color: dark ? AppColors.eerieBlack : AppColors.white,
                 child: Padding(
                   padding: const EdgeInsets.all(12.0),
                   child: Row(

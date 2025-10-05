@@ -7,7 +7,6 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../features/shop/models/category_model.dart';
 import '../../../utils/exceptions/platform_exceptions.dart';
-import '../../upload/upload_categories.dart';
 
 class CategoryRepository extends GetxController {
   static CategoryRepository get instance => Get.find();
@@ -52,32 +51,15 @@ class CategoryRepository extends GetxController {
   Future<void> addCategory(CategoryModel category) async {
     try {
       await _db.from(_table).insert(category.toJson());
-      // Pas besoin de vérifier error → si ça échoue, une exception sera levée
     } on PostgrestException catch (e) {
       throw 'Erreur base de données : ${e.code} - ${e.message}';
     } on SupabaseException catch (e) {
       throw SupabaseException(e.code).message;
     } catch (e) {
-      print(e);
       throw 'Erreur lors ajout categorie : $e';
     }
   }
-  Future<void> uploadDummyCategories() async {
-    try {
-      final categories = UploadCategories.dummyCategories;
-      final insertData =
-      categories.map((category) => category.toJson()).toList();
-
-      await _db.from(_table).insert(insertData);
-      // Idem : pas besoin de response.error
-    } on PostgrestException catch (e) {
-      throw 'DB Error: ${e.code} - ${e.message}';
-    } on SupabaseException catch (e) {
-      throw SupabaseException(e.code).message;
-    } catch (e) {
-      throw 'Quelque chose s\'est mal passé ! Veuillez réessayer.';
-    }
-  }
+  
   Future<String> uploadCategoryImage(File imageFile) async {
     try {
       final fileName = 'category_${DateTime.now().millisecondsSinceEpoch}.jpg';
@@ -128,7 +110,4 @@ class CategoryRepository extends GetxController {
       throw 'Erreur lors de la suppression de la catégorie : $e';
     }
   }
-
-
-
 }

@@ -1,8 +1,10 @@
+import 'package:caferesto/utils/constants/sizes.dart';
 import 'package:caferesto/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:caferesto/features/shop/models/category_model.dart';
 import 'package:caferesto/features/shop/controllers/category_controller.dart';
+import 'package:iconsax/iconsax.dart';
 import '../../../../common/widgets/appbar/appbar.dart';
 import '../../../../utils/constants/colors.dart';
 import 'add_category_screen.dart';
@@ -181,7 +183,7 @@ class _CategoryManagementPageState extends State<CategoryManagementPage>
         await categoryController.fetchCategories();
       },
       child: ListView.builder(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(AppSizes.defaultSpace),
         itemCount: categories.length,
         itemBuilder: (context, index) {
           final category = categories[index];
@@ -500,7 +502,7 @@ class _CategoryManagementPageState extends State<CategoryManagementPage>
                   Navigator.pop(context);
                   Get.to(() => EditCategoryScreen(category: category));
                 },
-                icon: const Icon(Icons.edit_outlined, size: 20),
+                icon: const Icon(Iconsax.edit, size: 20),
                 label: const Text("Éditer"),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blue.shade50,
@@ -519,7 +521,7 @@ class _CategoryManagementPageState extends State<CategoryManagementPage>
               margin: const EdgeInsets.only(left: 8),
               child: ElevatedButton.icon(
                 onPressed: () => _showDeleteConfirmationDialog(category),
-                icon: const Icon(Icons.delete_outline, size: 20),
+                icon: const Icon(Iconsax.trash, size: 20),
                 label: const Text("Supprimer"),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.red.shade50,

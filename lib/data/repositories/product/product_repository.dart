@@ -4,7 +4,6 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../features/shop/models/product_model.dart';
 import '../../../utils/exceptions/platform_exceptions.dart';
-import '../../upload/upload_dummy_products.dart';
 
 class ProductRepository extends GetxController {
   static ProductRepository get instance => Get.find();
@@ -134,23 +133,6 @@ class ProductRepository extends GetxController {
       throw 'Database error: ${e.message}';
     } catch (e) {
       throw 'Something went wrong! Please try again';
-    }
-  }
-
-  /// Upload dummy data to the Cloud Firebase
-  Future<void> uploadDummyData() async {
-    try {
-      final dummyProducts = StoreProducts.dummyProducts;
-      final chunks = _chunkList(dummyProducts, 100); // Supabase batch limit
-
-      for (final chunk in chunks) {
-        final data = chunk.map((product) => product.toJson()).toList();
-        await _db.from('products').insert(data);
-      }
-    } on PostgrestException catch (e) {
-      throw 'Upload failed: ${e.message}';
-    } catch (e) {
-      throw 'Something went wrong! Please try again.';
     }
   }
 
