@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:caferesto/features/personalization/controllers/user_controller.dart';
@@ -39,10 +38,6 @@ class CategoryController extends GetxController {
   final _categoryRepository = Get.put(CategoryRepository());
   RxList<CategoryModel> allCategories = <CategoryModel>[].obs;
   RxList<CategoryModel> featuredCategories = <CategoryModel>[].obs;
-
-  /// -----------------------------
-  /// Méthodes
-  /// -----------------------------
 
   /// Ouvre la galerie pour sélectionner une image
   Future<void> pickImage() async {
