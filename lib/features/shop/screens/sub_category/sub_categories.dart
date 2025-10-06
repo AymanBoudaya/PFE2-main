@@ -32,10 +32,19 @@ class SubCategoriesScreen extends StatelessWidget {
           child: Column(
             children: [
               /// Banner
-              TRoundedImage(
-                width: double.infinity,
-                imageUrl: TImages.promoBanner3,
-                applyImageRadius: true,
+              LayoutBuilder(
+                builder: (context, constraints) {
+                final isLargeScreen = constraints.maxWidth > 600;
+                final maxBannerWidth = 600.0;
+                  return ConstrainedBox(
+                    constraints: isLargeScreen ? BoxConstraints(maxWidth : maxBannerWidth) : const BoxConstraints(),
+                    child: TRoundedImage(
+                      width: double.infinity,
+                      imageUrl: TImages.promoBanner3,
+                      applyImageRadius: true,
+                    ),
+                  );
+                }
               ),
               SizedBox(height: AppSizes.spaceBtwSections),
 
